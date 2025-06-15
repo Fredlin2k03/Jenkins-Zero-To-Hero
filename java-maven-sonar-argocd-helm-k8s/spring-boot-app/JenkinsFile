@@ -55,8 +55,8 @@ pipeline {
         steps {
             withCredentials([string(credentialsId: 'github', variable: 'GITHUB_TOKEN')]) {
                 sh '''
-                    git config user.email "abhishek.xyz@gmail.com"
-                    git config user.name "Abhishek Veeramalla"
+                    git config user.email "jorsenfredlin@2k03.com"
+                    git config user.name "Jorsen Fredlin"
 
                     git checkout main
                     git pull origin main
