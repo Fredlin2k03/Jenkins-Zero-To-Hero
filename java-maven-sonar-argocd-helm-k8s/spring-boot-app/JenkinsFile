@@ -5,11 +5,13 @@ pipeline {
       args '--user root -v /var/run/docker.sock:/var/run/docker.sock'
     }
   }
+
   stages {
+
     stage('Checkout') {
       steps {
         sh 'echo passed'
-        // You can enable direct SCM checkout here later if needed
+        // Optional: You can enable direct checkout here if needed
       }
     }
 
@@ -60,10 +62,13 @@ pipeline {
 
                     git checkout main
                     git pull origin main
-                    git clean -fd 
+                    git clean -fd
 
                     BUILD_NUMBER=${BUILD_NUMBER}
-                    sed -i "s/replaceImageTag/${BUILD_NUMBER}/g" java-maven-sonar-argocd-helm-k8s/spring-boot-app-manifests/deployment.yml
+
+                    # ✅ Replace existing image tag directly every time
+                    sed -i "s|image: jorsenfredlin/ultimate-cicd:.*|image: jorsenfredlin/ultimate-cicd:${BUILD_NUMBER}|" java-maven-sonar-argocd-helm-k8s/spring-boot-app-manifests/deployment.yml
+
                     git add java-maven-sonar-argocd-helm-k8s/spring-boot-app-manifests/deployment.yml
                     git commit -m "Update deployment image to version ${BUILD_NUMBER}" || echo "No changes to commit"
                     git push https://${GITHUB_TOKEN}@github.com/${GIT_USER_NAME}/${GIT_REPO_NAME} HEAD:main
@@ -71,5 +76,6 @@ pipeline {
             }
         }
     }
+
   }
 }
