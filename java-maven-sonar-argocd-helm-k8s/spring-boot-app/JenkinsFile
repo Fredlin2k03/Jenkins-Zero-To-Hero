@@ -59,6 +59,7 @@ pipeline {
                     git config user.name "Abhishek Veeramalla"
 
                     git checkout main
+                    git pull origin main
                     git clean -fd 
 
                     BUILD_NUMBER=${BUILD_NUMBER}
