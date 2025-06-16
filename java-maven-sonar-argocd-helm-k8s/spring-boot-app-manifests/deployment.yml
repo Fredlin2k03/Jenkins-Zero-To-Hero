@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
       - name: spring-boot-app
-        image: jorsenfredlin/ultimate-cicd:19
+        image: jorsenfredlin/ultimate-cicd:21
 
 
         ports:
